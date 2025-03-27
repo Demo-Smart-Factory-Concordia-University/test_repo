@@ -1,0 +1,29 @@
+name: Create CNC-Vibration-App Docker image on GitHub Container Registry
+
+on:
+  release:
+    types:
+      - created
+  workflow_dispatch:
+
+env:
+  DOCKER_IMAGE: ghcr.io/demo-smart-factory-concordia-university/cnc-vibr-app
+
+jobs:
+  push_to_registry:
+    name: Build and Push Docker Image to GHCR
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Set tags dynamically
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "TAGS=${{ env.DOCKER_IMAGE }}:latest" >> $GITHUB_ENV
+          else
+            echo "TAGS=${{ env.DOCKER_IMAGE }}:${{ github.ref_name }}" >> $GITHUB_ENV
+            echo "TAGS=${{ env.DOCKER_IMAGE }}:latest" >> $GITHUB_ENV
+          fi
+          echo $TAGS
+
+      
