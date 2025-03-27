@@ -24,6 +24,8 @@ jobs:
             echo "TAGS=${{ env.DOCKER_IMAGE }}:${{ github.ref_name }}" >> $GITHUB_ENV
             echo "TAGS=${{ env.DOCKER_IMAGE }}:latest" >> $GITHUB_ENV
           fi
-          echo $TAGS
+
+      - name: Debug TAGS value
+        run: echo "TAGS is set to: ${{ env.TAGS }}"
 
       
