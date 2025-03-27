@@ -22,8 +22,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "TAGS=${{ env.DOCKER_IMAGE }}:latest" >> $GITHUB_ENV
           else
-            echo "TAGS=${{ env.DOCKER_IMAGE }}:${{ github.ref_name }}" >> $GITHUB_ENV
-            echo "TAGS=${{ env.DOCKER_IMAGE }}:latest" >> $GITHUB_ENV
+            echo "TAGS=${{ env.DOCKER_IMAGE }}:${{ github.ref_name }},${{ env.DOCKER_IMAGE }}:latest" >> $GITHUB_ENV
           fi
 
       - name: Debug TAGS value
