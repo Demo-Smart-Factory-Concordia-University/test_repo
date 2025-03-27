@@ -26,6 +26,6 @@ jobs:
           fi
 
       - name: Debug TAGS value
-        run: echo "TAGS is set to: ${{ env.TAGS }}"
+        run: echo "TAGS is set to ${{ env.TAGS }}"
 
       
