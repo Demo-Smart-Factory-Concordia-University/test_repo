@@ -18,6 +18,7 @@ jobs:
 
       - name: Set tags dynamically
         run: |
+          echo "event_name ${{ github.event_name }}"
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "TAGS=${{ env.DOCKER_IMAGE }}:latest" >> $GITHUB_ENV
           else
@@ -27,5 +28,4 @@ jobs:
 
       - name: Debug TAGS value
         run: echo "TAGS is set to ${{ env.TAGS }}"
-
       
