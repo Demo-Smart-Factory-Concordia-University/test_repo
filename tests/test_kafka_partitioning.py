@@ -1,4 +1,5 @@
 import unittest
+import os
 from confluent_kafka import Producer, Consumer, TopicPartition
 import hashlib
 
@@ -36,9 +37,9 @@ class TestKafkaPartitioning(unittest.TestCase):
         self.producer.produce('my_topic', key=key, value=str(value).encode('utf-8'))
         self.producer.flush()
 
-        # Fetch the partition count from Kafka for 'my_topic'
-        partitions = self.consumer.assign([TopicPartition('my_topic', partition=-1)])
-        num_partitions = len(partitions)
+        # Get the topic metadata to fetch the number of partitions
+        metadata = self.consumer.list_topics(timeout=10)
+        num_partitions = len(metadata.topics['my_topic'].partitions)
 
         # Calculate partition manually using your partitioning function
         expected_partition = get_partition_for_key(key, num_partitions)
