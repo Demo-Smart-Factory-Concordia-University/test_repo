@@ -31,12 +31,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 5: Define the Docker service with the dynamic HOST_IP
+      # Step 5: Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version  # Verify installation
+
+      # Step 6: Run Kafka with Docker
       - name: Run Kafka with Docker
         run: |
           docker-compose -f docker-compose.yml up -d
 
-      # Step 6: Wait for Kafka to be ready
+      # Step 7: Wait for Kafka to be ready
       - name: Wait for Kafka to be ready
         run: |
           for i in {1..30}; do
@@ -49,10 +56,10 @@ jobs:
             fi
           done
 
-      # Step 7: Run Kafka Partitioning Test
+      # Step 8: Run Kafka Partitioning Test
       - name: Run Kafka Partitioning Test
         run: python -m unittest discover tests
 
-      # Step 8: Shutdown Kafka
+      # Step 9: Shutdown Kafka
       - name: Shutdown Kafka
         run: docker-compose down
