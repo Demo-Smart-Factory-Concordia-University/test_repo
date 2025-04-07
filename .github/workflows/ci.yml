@@ -47,7 +47,7 @@ jobs:
       - name: Wait for Kafka to be ready
         run: |
           for i in {1..30}; do
-            if nc -zv broker 9092; then
+            if nc -zv localhost 9092; then
               echo "Kafka is ready!"
               break
             else
