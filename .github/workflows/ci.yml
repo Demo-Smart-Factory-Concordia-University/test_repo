@@ -13,7 +13,6 @@ jobs:
         id: get_ip
         run: |
           echo "HOST_IP=$(hostname -I | awk '{print $1}')" >> $GITHUB_ENV
-          echo "Host IP is $HOST_IP"
 
       # Step 2: Checkout code
       - name: Checkout code
@@ -56,10 +55,16 @@ jobs:
             fi
           done
 
-      # Step 8: Run Kafka Partitioning Test
+      # Step 8: Create Kafka topic with a custom number of partitions
+      - name: Create Kafka Topic
+        run: |
+          docker exec broker kafka-topics --create --topic mytopic --partitions 3 --replication-factor 1 --bootstrap-server localhost:9092
+          echo "Created topic 'mytopic' with 3 partitions"
+
+      # Step 9: Run Kafka Partitioning Test
       - name: Run Kafka Partitioning Test
         run: python -m unittest discover tests
 
-      # Step 9: Shutdown Kafka
+      # Step 10: Shutdown Kafka
       - name: Shutdown Kafka
         run: docker-compose down

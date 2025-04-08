@@ -1,6 +1,5 @@
 import unittest
-import os
-from confluent_kafka import Producer, Consumer, TopicPartition
+from confluent_kafka import Producer, Consumer
 import hashlib
 
 # Assume this is your custom partition function (it could be in your module)
@@ -19,7 +18,7 @@ class TestKafkaPartitioning(unittest.TestCase):
             'group.id': 'test-consumer-group',
             'auto.offset.reset': 'earliest'
         })
-        cls.consumer.subscribe(['my_topic'])
+        cls.consumer.subscribe(['mytopic'])
     
     @classmethod
     def tearDownClass(cls):
@@ -34,12 +33,12 @@ class TestKafkaPartitioning(unittest.TestCase):
         value = {'asset_uuid': 'asset-1234', 'status': 'active'}
 
         # Send the message to the topic
-        self.producer.produce('my_topic', key=key, value=str(value).encode('utf-8'))
+        self.producer.produce('mytopic', key=key, value=str(value).encode('utf-8'))
         self.producer.flush()
 
         # Get the topic metadata to fetch the number of partitions
         metadata = self.consumer.list_topics(timeout=10)
-        num_partitions = len(metadata.topics['my_topic'].partitions)
+        num_partitions = len(metadata.topics['mytopic'].partitions)
 
         # Calculate partition manually using your partitioning function
         expected_partition = get_partition_for_key(key, num_partitions)
