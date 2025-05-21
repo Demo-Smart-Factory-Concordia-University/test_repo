@@ -5,7 +5,6 @@
     "docker-in-docker": {
       "version": "latest"
     },
-    "ghcr.io/devcontainers/feature-starter/color:1": {"version": "latest"},
     "ghcr.io/demo-smart-factory-concordia-university/openfactory-sdk/infra:latest": {}
   },
   "customizations": {
