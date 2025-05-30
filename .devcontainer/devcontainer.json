@@ -5,7 +5,9 @@
     "docker-in-docker": {
       "version": "latest"
     },
-    "ghcr.io/demo-smart-factory-concordia-university/openfactory-sdk/infra:latest": {}
+    "ghcr.io/demo-smart-factory-concordia-university/openfactory-sdk/infra:latest": {
+      "openfactory-version": "main"
+    }
   },
   "customizations": {
     "vscode": {
