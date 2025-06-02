@@ -1,0 +1,12 @@
+# Virtual Temperatur Sensor
+
+devices:
+
+  vtempsens:
+    uuid: VIRTUAL-TEMP-SENS
+    agent:
+      port: 2001
+      device_xml: device.xml
+      adapter:
+        ip: virtual-temperature-sensor-adapter
+        port: 7878
