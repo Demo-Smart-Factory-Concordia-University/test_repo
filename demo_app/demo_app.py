@@ -12,6 +12,7 @@ print(temp.Temp.value)
 def on_sample(msg_key, msg_value):
     print(f"[Sample] [{msg_key}] {msg_value}")
 
+
 temp.subscribe_to_samples(on_sample, 'temp_samples_group')
 
 # run a main loop while subscriptions remain active

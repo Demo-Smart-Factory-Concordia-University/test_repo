@@ -1,0 +1,7 @@
+# OpenFacotry deployment instructions for the demo_ofa_app
+
+apps:
+
+  demo_ofa_app:
+    uuid: DEMO-APP
+    image: demo_ofa_app
