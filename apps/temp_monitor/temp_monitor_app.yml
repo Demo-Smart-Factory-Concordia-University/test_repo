@@ -1,0 +1,12 @@
+# OpenFacotry deployment instructions for the temperature monitoring app
+
+apps:
+
+  temp_monitor_app:
+    uuid: TEMP-MONITOR
+    image: temp_monitor_app
+    environment:
+      - TEMP_SENSOR_UUID=VIRTUAL-TEMP-SENS
+      - KSQLDB_URL_DEPLOY=http://ksqldb-server:8088
+      - KAFKA_BROKER_DEPLOY=broker:29092
+      - DEBUG=True
