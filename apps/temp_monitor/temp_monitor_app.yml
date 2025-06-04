@@ -3,7 +3,7 @@
 apps:
 
   temp_monitor_app:
-    uuid: TEMP-MONITOR
+    uuid: TEMP-MONITOR-APP
     image: temp_monitor_app
     environment:
       - TEMP_SENSOR_UUID=VIRTUAL-TEMP-SENS
