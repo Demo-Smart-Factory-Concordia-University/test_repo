@@ -47,7 +47,7 @@ class TemperatureMonitor(OpenFactoryApp):
         self.temp.add_attribute('Temp_cond',
                                 AssetAttribute('UNAVAILABLE',
                                                type='Condition',
-                                               tag='SYSTEM'))
+                                               tag='UNAVAILABLE'))
 
         # Subscribe to samples from the temperature sensor
         self.temp.subscribe_to_samples(self.on_temp_sample,
@@ -78,15 +78,24 @@ class TemperatureMonitor(OpenFactoryApp):
             if float(msg_value['value']) <= self.TEMP_NORMAL:
                 if self.DEBUG:
                     print('Normal temperature')
-                self.temp.Temp_cond = 'Normal'
+                self.temp.add_attribute('Temp_cond',
+                                        AssetAttribute('Temperature is normal',
+                                                       type='Condition',
+                                                       tag='Normal'))
             elif float(msg_value['value']) <= self.TEMP_WARNING:
                 if self.DEBUG:
                     print('Temperature warning')
-                self.temp.Temp_cond = 'Warning'
+                self.temp.add_attribute('Temp_cond',
+                                        AssetAttribute('Temperature is getting high. Check.',
+                                                       type='Condition',
+                                                       tag='Warning'))
             else:
                 if self.DEBUG:
                     print('High temperature')
-                self.temp.Temp_cond = 'Fault'
+                self.temp.add_attribute('Temp_cond',
+                                        AssetAttribute('DANGER temperature is too high',
+                                                       type='Condition',
+                                                       tag='Fault'))
 
     def app_event_loop_stopped(self) -> None:
         """
